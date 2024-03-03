@@ -1,6 +1,6 @@
 {
-  "name": "aws-node-http-api-typescript",
-  "description": "This template demonstrates how to make a simple HTTP API with Node.js and Typescript running on AWS Lambda and API Gateway using the Serverless Framework v3",
+  "name": "simple-email-verification",
+  "description": "A service for verifying email addresses",
   "version": "1.0.0",
   "devDependencies": {
     "@types/aws-lambda": "8.10.134",

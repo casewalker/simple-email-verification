@@ -1,4 +1,4 @@
-service: aws-node-http-api-typescript
+service: simple-email-verification
 frameworkVersion: '3'
 
 plugins:
@@ -7,11 +7,54 @@ plugins:
 provider:
   name: aws
   runtime: nodejs20.x
+  httpApi:
+    cors: true
+    authorizers:
+      basicAuthorizer:
+        type: request
+        functionName: basicAuthorizer
+        enableSimpleResponses: true
+
+  environment:
+    EMAIL_VERIFICATION_TABLE_NAME: "${sls:service}-${sls:stage}"
+    SSM_AUTHORIZER_VALS_KEY: "${sls:service}-authorizer-values"
+    PATH_PARAMETER_VERIFICATION: "verificationKey"
+
+  iam:
+    role:
+      statements:
+        - Effect: Allow
+          Action:
+            - dynamodb:Query
+            - dynamodb:GetItem
+            - dynamodb:PutItem
+            - dynamodb:UpdateItem
+          Resource: "arn:aws:dynamodb:${aws:region}:*:table/${self:provider.environment.EMAIL_VERIFICATION_TABLE_NAME}"
+        - Effect: Allow
+          Action:
+            - ssm:GetParameter
+          Resource: "arn:aws:ssm:${aws:region}:*:parameter/${self:provider.environment.SSM_AUTHORIZER_VALS_KEY}"
+        - Effect: Allow
+          Action:
+            - ses:SendEmail
+          Resource: "todo: Create emailverification@innovation.nj.gov, then put identity ARN here"
 
 functions:
-  hello:
-    handler: handler.hello
+  basicAuthorizer:
+    handler: src/authorizer.basicAuthHandler
+
+  registerEmail:
+    handler: src/emailVerification.register
     events:
       - httpApi:
-          path: /
-          method: get
+          path: "/register"
+          method: POST
+          authorizer:
+            name: basicAuthorizer
+
+  verifyEmail:
+    handler: src/emailVerification.verify
+    events:
+      - httpApi:
+          path: "/verify/{${self:provider.environment.PATH_PARAMETER_VERIFICATION}}"
+          method: GET

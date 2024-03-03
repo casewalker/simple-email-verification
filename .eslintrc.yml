@@ -1,0 +1,56 @@
+env:
+  es2023: true
+  jest: true
+  jest/globals: true
+  node: true
+extends:
+  - "eslint:recommended"
+  - "plugin:@typescript-eslint/recommended"
+  - "prettier"
+ignorePatterns:
+  - "*.json"
+  - "*.yml"
+  - ".github"
+  - ".serverless"
+  - ".gitignore"
+  - ".nvmrc"
+  - ".prettierignore"
+parser: "@typescript-eslint/parser"
+parserOptions:
+  ecmaFeatures: { }
+  ecmaVersion: latest
+  sourceType: module
+plugins:
+  - "jest"
+  - "@typescript-eslint"
+  - "@typescript-eslint/eslint-plugin"
+rules:
+  no-console: off
+  "@typescript-eslint/no-unused-vars":
+    - warn
+    - argsIgnorePattern: "^_"
+      varsIgnorePattern: "^_"
+      caughtErrorsIgnorePattern: "^_"
+  "@typescript-eslint/no-empty-function": off
+  "@typescript-eslint/explicit-function-return-type": warn
+  prefer-template: error
+settings:
+  import/resolver:
+    node:
+      extensions: [".ts"]
+overrides:
+  - files:
+    - "**/*.test.*"
+    env:
+      es2023: true
+      jest: true
+      jest/globals: true
+      node: true
+    plugins:
+      - "jest"
+      - "jest-formatting"
+    extends:
+      - "plugin:jest/recommended"
+      - "plugin:jest-formatting/recommended"
+    rules:
+       jest/expect-expect: error

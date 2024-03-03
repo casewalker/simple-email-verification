@@ -1,9 +1,12 @@
 service: aws-node-http-api-typescript
 frameworkVersion: '3'
 
+plugins:
+  - serverless-plugin-typescript
+
 provider:
   name: aws
-  runtime: nodejs18.x
+  runtime: nodejs20.x
 
 functions:
   hello:
@@ -12,6 +15,3 @@ functions:
       - httpApi:
           path: /
           method: get
-
-plugins:
-  - serverless-plugin-typescript

@@ -19,6 +19,7 @@ provider:
     EMAIL_VERIFICATION_TABLE_NAME: "${sls:service}-${sls:stage}"
     SSM_AUTHORIZER_VALS_KEY: "${sls:service}-authorizer-values"
     PATH_PARAMETER_VERIFICATION: "verificationKey"
+    API_URL: !GetAtt HttpApi.ApiEndpoint
 
   iam:
     role:

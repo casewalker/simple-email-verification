@@ -1,3 +1,1 @@
-export const getValidAuthorizerKeys = async (): Promise<string[]> => {
-
-};
+export const getValidAuthorizerKeys = async (): Promise<string[]> => {};

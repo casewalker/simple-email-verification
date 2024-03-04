@@ -7,4 +7,5 @@ module.exports = {
   },
   moduleDirectories: ["node_modules", "src"],
   silent: true,
+  setupFiles: ["<rootDir>/.jest/setEnvVars.js"],
 };

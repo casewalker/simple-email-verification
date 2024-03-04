@@ -21,7 +21,9 @@ type BasicAuthEvent = Pick<APIGatewayProxyEvent, "body" | "headers">;
  * @param event Should have a basic Authorization header and a URLSearchParams
  * body containing an email key
  */
-export const basicAuthHandler = async (event: BasicAuthEvent): Promise<AuthorizerResponse> => {
+export const basicAuthHandler = async (
+  event: BasicAuthEvent,
+): Promise<AuthorizerResponse> => {
   if (event.body == null || Object.keys(event.headers).length === 0) {
     return { isAuthorized: false };
   }

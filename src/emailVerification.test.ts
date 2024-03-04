@@ -1,4 +1,7 @@
-import { createNewEmailVerification, generateEmailVerificationKey } from "./emailVerification";
+import {
+  createNewEmailVerification,
+  generateEmailVerificationKey,
+} from "./emailVerification";
 import { createEmailVerificationRecord } from "./dynamoDbUtils";
 import { sendVerificationEmail } from "./sesUtils";
 
@@ -27,7 +30,9 @@ describe("createNewEmailVerification", () => {
   it("calls DynamoDB with a valid email key", async () => {
     await createNewEmailVerification(TEST_EMAIL);
     expect(createEmailVerificationRecord).toHaveBeenCalledWith(
-      expect.stringMatching(new RegExp(`^${TEST_EMAIL_B64_VALUE}_[a-f0-9]{64}$`)),
+      expect.stringMatching(
+        new RegExp(`^${TEST_EMAIL_B64_VALUE}_[a-f0-9]{64}$`),
+      ),
       TEST_EMAIL,
       expect.any(Date),
     );
@@ -37,7 +42,11 @@ describe("createNewEmailVerification", () => {
     await createNewEmailVerification(TEST_EMAIL);
     expect(sendVerificationEmail).toHaveBeenCalledWith(
       TEST_EMAIL,
-      expect.stringMatching(new RegExp(`href="https://[^ "]*${encodeURI(TEST_EMAIL_B64_VALUE)}_[a-f0-9]{64}"`)),
+      expect.stringMatching(
+        new RegExp(
+          `href="https://[^ "]*${encodeURI(TEST_EMAIL_B64_VALUE)}_[a-f0-9]{64}"`,
+        ),
+      ),
     );
   });
 });

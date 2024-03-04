@@ -1,4 +1,5 @@
 # Simple Email Verification
+
 A Serverless project used to verify user email addresses
 
 ---

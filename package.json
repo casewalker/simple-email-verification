@@ -2,6 +2,12 @@
   "name": "simple-email-verification",
   "description": "A service for verifying email addresses",
   "version": "1.0.0",
+  "scripts": {
+    "test": "jest",
+    "lint": "eslint . --max-warnings 0 --ext .js,.ts",
+    "lint:fix": "eslint . --max-warnings 0 --ext .js,.ts --fix",
+    "typecheck": "tsc --noemit"
+  },
   "devDependencies": {
     "@babel/preset-env": "7.24.0",
     "@babel/preset-typescript": "7.23.3",

@@ -6,10 +6,10 @@ interface DynamoDbEmailRecord {
   verifiedDate?: Date;
 }
 
-export const createEmailVerificationRecord = async (key: string, email: string, dateCreated: Date) => {
+export const createEmailVerificationRecord = async (
+  key: string,
+  email: string,
+  dateCreated: Date,
+) => {};
 
-};
-
-export const attemptToVerifyRecord = async (key: string) => {
-
-};
+export const attemptToVerifyRecord = async (key: string) => {};
